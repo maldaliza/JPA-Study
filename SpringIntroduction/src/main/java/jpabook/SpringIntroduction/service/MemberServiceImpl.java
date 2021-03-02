@@ -2,7 +2,6 @@ package jpabook.SpringIntroduction.service;
 
 import jpabook.SpringIntroduction.domain.Member;
 import jpabook.SpringIntroduction.repository.MemberRepository;
-import jpabook.SpringIntroduction.repository.implementation.MemoryMemberRepository;
 
 import java.util.List;
 import java.util.Optional;

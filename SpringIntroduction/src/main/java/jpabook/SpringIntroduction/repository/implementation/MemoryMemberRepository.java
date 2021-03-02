@@ -5,9 +5,6 @@ import jpabook.SpringIntroduction.repository.MemberRepository;
 
 import java.util.*;
 
-/**
- * 예제에서는 동시성 문제가 고려되지 않음. 실무에서는 ConcurrentHashMap, AtomicLong 사용 고려.
- */
 public class MemoryMemberRepository implements MemberRepository {
 
     // 저장공간(key: Long, value: Member)
