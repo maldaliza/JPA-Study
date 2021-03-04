@@ -2,10 +2,12 @@ package jpabook.SpringIntroduction.service;
 
 import jpabook.SpringIntroduction.domain.Member;
 import jpabook.SpringIntroduction.repository.MemberRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
