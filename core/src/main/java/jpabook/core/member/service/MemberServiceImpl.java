@@ -2,16 +2,17 @@ package jpabook.core.member.service;
 
 import jpabook.core.member.domain.Member;
 import jpabook.core.member.repository.MemberRepository;
-import jpabook.core.member.repository.MemoryMemberRepository;
 
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     @Override
-    public void join(Member member) {
-        memberRepository.save(member);
-    }
+    public void join(Member member) { memberRepository.save(member); }
 
     @Override
     public Member findMember(Long memberId) {
