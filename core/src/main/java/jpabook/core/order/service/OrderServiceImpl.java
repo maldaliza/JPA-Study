@@ -4,12 +4,16 @@ import jpabook.core.discount.DiscountPolicy;
 import jpabook.core.member.domain.Member;
 import jpabook.core.member.repository.MemberRepository;
 import jpabook.core.order.domain.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

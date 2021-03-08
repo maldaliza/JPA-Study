@@ -2,7 +2,9 @@ package jpabook.core.discount;
 
 import jpabook.core.member.domain.Grade;
 import jpabook.core.member.domain.Member;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10;
