@@ -2,13 +2,16 @@ package jpabook.exercise.member.service.implementation;
 
 import jpabook.exercise.member.domain.Member;
 import jpabook.exercise.member.repository.MemberRepository;
-import jpabook.exercise.member.repository.implementation.MemoryMemberRepository;
 import jpabook.exercise.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

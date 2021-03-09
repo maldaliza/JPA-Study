@@ -2,10 +2,12 @@ package jpabook.exercise.member.repository.implementation;
 
 import jpabook.exercise.member.domain.Member;
 import jpabook.exercise.member.repository.MemberRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>();
