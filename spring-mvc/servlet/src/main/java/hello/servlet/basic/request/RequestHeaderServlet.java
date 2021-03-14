@@ -21,6 +21,9 @@ public class RequestHeaderServlet extends HttpServlet {
         printEtc(request);
     }
 
+    /**
+     * Start Line 정보
+     */
     private void printStartLine(HttpServletRequest request) {
 
         System.out.println("--- REQUEST-LINE - start ---");
