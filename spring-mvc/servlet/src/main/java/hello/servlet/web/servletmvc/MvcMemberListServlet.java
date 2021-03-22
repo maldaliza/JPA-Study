@@ -23,7 +23,7 @@ public class MvcMemberListServlet extends HttpServlet {
         // 1. 저장소의 Member 객체 인스턴스들을 전부 불러온다.
         List<Member> members = memberRepository.findAll();
 
-        // 2. Model에 데이터를 담는다.
+        // 2. Model에 데이터를 담는다. (View에서 데이터를 참조하기 위해..)
         request.setAttribute("members", members);
 
         // 3. "/WEB-INF/views/members.jsp" 다음 경로로 넘어가겠다.

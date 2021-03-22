@@ -26,6 +26,9 @@ public class MyView {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Model에 있는 데이터를 RequestAttribute로 바꾸는 메소드
+     */
     private void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
         model.forEach((key, value) -> request.setAttribute(key, value));
     }

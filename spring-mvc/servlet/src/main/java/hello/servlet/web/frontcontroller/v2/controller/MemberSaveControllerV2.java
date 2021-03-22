@@ -25,7 +25,7 @@ public class MemberSaveControllerV2 implements ControllerV2 {
         Member member = new Member(username, age);
         memberRepository.save(member);
 
-        // 3. Model에 데이터를 보관한다.
+        // 3. Model에 데이터를 보관한다. (View에서 데이터를 참조하기 위해..)
         request.setAttribute("member", member);
 
         // 4. "/WEB-INF/views/save-result.jsp" 다음 경로로 넘어가겠다.

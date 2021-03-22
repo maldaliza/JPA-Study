@@ -18,12 +18,12 @@ import java.util.Map;
 public class FrontControllerServletV2 extends HttpServlet {
 
     /**
-     * 매핑 정보(key: URL, value: ControllerV2)를 받을 변수 선언.
+     * 매핑 정보(key: URL, value: ControllerV2)
      */
     private Map<String, ControllerV2> controllerMap = new HashMap<>();
 
     /**
-     * 서블릿이 생성될 때, 받아온 매핑 정보에 따라 실행될 Controller를 지정.
+     * 받아온 매핑 정보(URL)에 따라 실행될 Controller를 controllerMap에 넘겨준다.
      */
     public FrontControllerServletV2() {
         controllerMap.put("/front-controller/v2/members/new-form", new MemberFormControllerV2());
@@ -39,7 +39,7 @@ public class FrontControllerServletV2 extends HttpServlet {
         // 1. 요청 받은 URI를 추출.
         String requestURI = request.getRequestURI();
 
-        // 2. URI를 통한 실행할 Controller 선정.
+        // 2. 추출된 URI(key)를 통한 실행할 Controller 찾음.
         ControllerV2 controller = controllerMap.get(requestURI);
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

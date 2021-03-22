@@ -17,12 +17,12 @@ import java.util.Map;
 public class FrontControllerServletV1 extends HttpServlet {
 
     /**
-     * 매핑 정보(key: URL, value: ControllerV1)를 받을 변수 선언.
+     * 1. 매핑 정보(key: URL, value: ControllerV1)
      */
     private Map<String, ControllerV1> controllerMap = new HashMap<>();
 
     /**
-     * 서블릿이 생성될 때, 받아온 매핑 정보에 따라 실행될 Controller를 지정.
+     * 2. 받아온 매핑 정보(URL)에 따라 실행될 Controller를 controllerMap에 넣어준다.
      */
     public FrontControllerServletV1() {
         controllerMap.put("/front-controller/v1/members/new-form", new MemberFormControllerV1());
@@ -35,8 +35,8 @@ public class FrontControllerServletV1 extends HttpServlet {
 
         System.out.println("FrontControllerServletV1.service");
 
-        String requestURI = request.getRequestURI();
-        ControllerV1 controller = controllerMap.get(requestURI);        // key로 value를 찾는 것.
+        String requestURI = request.getRequestURI();        // "/front-controller/v1/*"를 얻어냄.
+        ControllerV1 controller = controllerMap.get(requestURI);        // key로 value를 찾는 것. (실행할 Controller를 찾는 것.)
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;

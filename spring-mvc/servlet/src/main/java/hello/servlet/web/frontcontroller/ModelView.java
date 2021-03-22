@@ -3,6 +3,9 @@ package hello.servlet.web.frontcontroller;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Model과 View가 같이 있는 클래스
+ */
 public class ModelView {
 
     private String viewName;        // view의 논리 이름

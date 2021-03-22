@@ -9,6 +9,9 @@ public class MemberFormControllerV3 implements ControllerV3 {
 
     @Override
     public ModelView process(Map<String, String> paramMap) {
-        return new ModelView("new-form");
+
+        // 1. 논리이름 "new-form"을 담아서 반환.
+        ModelView modelView = new ModelView("new-form");
+        return modelView;
     }
 }
