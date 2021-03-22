@@ -9,5 +9,8 @@ import java.io.IOException;
 
 public interface ControllerV2 {
 
+    /**
+     * 기존에는 void 타입이였고, 컨트롤러가 알아서 forward로 이동하였음.
+     */
     MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }
