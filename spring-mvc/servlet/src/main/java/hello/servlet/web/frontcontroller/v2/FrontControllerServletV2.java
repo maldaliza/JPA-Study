@@ -36,14 +36,20 @@ public class FrontControllerServletV2 extends HttpServlet {
 
         System.out.println("FrontControllerServletV2.service");
 
+        // 1. 요청 받은 URI를 추출.
         String requestURI = request.getRequestURI();
-        ControllerV2 controller = controllerMap.get(requestURI);        // key로 value를 찾는 것.
+
+        // 2. URI를 통한 실행할 Controller 선정.
+        ControllerV2 controller = controllerMap.get(requestURI);
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
+        // 3. 선정된 Controller의 process() 메소드에 request, response 값을 넘겨준다. => 리턴 값은 "MyView"
         MyView view = controller.process(request, response);
+
+        // 4. MyView 클래스의 render() 메소드로 렌더링.
         view.render(request, response);
     }
 }
