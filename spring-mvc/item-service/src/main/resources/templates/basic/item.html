@@ -14,6 +14,10 @@
     <div class="py-5 text-center">
         <h2>상품 상세</h2>
     </div>
+
+    <!--  저장이 잘 되었으면 상품 상세 화면에 "저장되었습니다"라는 메시지를 보여달라는 요구사항  -->
+    <h3 th:if="${param.status}" th:text="'저장 완료'"></h3>
+
     <div>
         <label for="itemId">상품 ID</label>
         <input type="text" id="itemId" name="itemId" class="form-control" th:value="${item.id}" readonly>
