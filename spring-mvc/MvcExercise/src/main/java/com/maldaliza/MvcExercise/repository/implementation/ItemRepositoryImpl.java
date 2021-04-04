@@ -33,6 +33,14 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
+    public void update(Long itemId, Item updateParam) {
+        Item findItem = findById(itemId);
+        findItem.setItemName(updateParam.getItemName());
+        findItem.setPrice(updateParam.getPrice());
+        findItem.setQuantity(updateParam.getQuantity());
+    }
+
+    @Override
     public void clearStore() {
         store.clear();
     }

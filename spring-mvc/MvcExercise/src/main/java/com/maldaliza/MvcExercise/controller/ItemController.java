@@ -81,6 +81,39 @@ public class ItemController {
         return "redirect:/items/" + item.getId();
     }
 
+    /**
+     * 상품 수정 (GET)
+     * @param itemId
+     * @param model
+     * @return
+     */
+    @GetMapping("/{itemId}/update")
+    public String updateForm(@PathVariable Long itemId, Model model) {
+
+        log.info("Item ID to be updated={}", itemId);
+
+        Item findItem = itemRepository.findById(itemId);
+        model.addAttribute("item", findItem);
+
+        return "updateItem";
+    }
+
+    /**
+     * 상품 수정 (POST)
+     * @param itemId
+     * @param item
+     * @return
+     */
+    @PostMapping("/{itemId}/update")
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute Item item) {
+
+        log.info("Successfully Updated Item");
+
+        itemRepository.update(itemId, item);
+
+        return "redirect:/items/{itemId}";
+    }
+
     @PostConstruct
     public void init() {
         itemRepository.save(new Item("Java Programming", 10000, 10));

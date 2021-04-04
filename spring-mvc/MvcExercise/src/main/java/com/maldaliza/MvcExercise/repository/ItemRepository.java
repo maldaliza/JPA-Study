@@ -15,6 +15,9 @@ public interface ItemRepository {
     // 모든 상품 조회
     List<Item> findAll();
 
+    // 상품 수정
+    void update(Long itemId, Item updateParam);
+
     // 테스트용
     void clearStore();
 }
