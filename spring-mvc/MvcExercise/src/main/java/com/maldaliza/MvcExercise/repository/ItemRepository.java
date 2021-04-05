@@ -18,6 +18,9 @@ public interface ItemRepository {
     // 상품 수정
     void update(Long itemId, Item updateParam);
 
+    // 상품 삭제
+    void deleteById(Long itemId);
+
     // 테스트용
     void clearStore();
 }

@@ -114,6 +114,21 @@ public class ItemController {
         return "redirect:/items/{itemId}";
     }
 
+    /**
+     * 상품 삭제
+     * @param itemId
+     * @return
+     */
+    @GetMapping("/{itemId}/delete")     // PostMapping으로 수정해야함!!
+    public String deleteItem(@PathVariable Long itemId) {
+
+        log.info("Successfully Deleted Item");
+
+        itemRepository.deleteById(itemId);
+
+        return "redirect:/items";
+    }
+
     @PostConstruct
     public void init() {
         itemRepository.save(new Item("Java Programming", 10000, 10));

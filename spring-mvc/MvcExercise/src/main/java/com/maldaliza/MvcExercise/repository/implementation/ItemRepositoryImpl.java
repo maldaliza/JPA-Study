@@ -41,6 +41,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
+    public void deleteById(Long itemId) {
+        store.remove(itemId);
+    }
+
+    @Override
     public void clearStore() {
         store.clear();
     }
