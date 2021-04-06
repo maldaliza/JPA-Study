@@ -119,7 +119,7 @@ public class ItemController {
      * @param itemId
      * @return
      */
-    @GetMapping("/{itemId}/delete")     // PostMapping으로 수정해야함!!
+    @PostMapping("/{itemId}")
     public String deleteItem(@PathVariable Long itemId) {
 
         log.info("Successfully Deleted Item");
