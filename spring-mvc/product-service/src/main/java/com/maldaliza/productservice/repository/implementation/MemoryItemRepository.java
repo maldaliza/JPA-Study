@@ -46,6 +46,11 @@ public class MemoryItemRepository implements ItemRepository {
         item.setQuantity(updateParam.getQuantity());
     }
 
+    @Override
+    public void deleteById(Long id) {
+        store.remove(id);
+    }
+
     // 테스트용 메소드
     public void clearStore() {
         store.clear();

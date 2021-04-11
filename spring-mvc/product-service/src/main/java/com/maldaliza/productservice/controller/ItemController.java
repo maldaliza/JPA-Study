@@ -65,6 +65,42 @@ public class ItemController {
     }
 
     /**
+     * 상품 수정 폼 (GET)
+     * @param itemId
+     * @param model
+     * @return
+     */
+    @GetMapping("/edit/{itemId}")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "itemservice/editForm";
+    }
+
+    /**
+     * 상품 수정 처리 (POST)
+     * @param itemId
+     * @param item
+     * @return
+     */
+    @PostMapping("/edit/{itemId}")
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/detail/{itemId}";
+    }
+
+    /**
+     * 상품 삭제
+     * @param itemId
+     * @return
+     */
+    @PostMapping("/detail/{itemId}")
+    public String deleteItem(@PathVariable Long itemId) {
+        itemRepository.deleteById(itemId);
+        return "redirect:/";
+    }
+
+    /**
      * 테스트용 데이터 추가
      */
     @PostConstruct
