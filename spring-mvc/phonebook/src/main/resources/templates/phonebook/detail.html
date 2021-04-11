@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>전화번호부 - 상세보기</title>
+    <meta charset="UTF-8">
+    <link href='/webjars/bootstrap/4.5.0/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+    <header th:insert="common/header.html"></header>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" th:text="@{${phone.name} + ' - ' + ${phone.phoneNumber}}"></h5>
+                <p class="card-text" th:text="${phone.content}"></p>
+            </div>
+        </div>
+    </div>
+</html>

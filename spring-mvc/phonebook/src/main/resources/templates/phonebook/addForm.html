@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>전화번호부 - 등록</title>
+    <meta charset="UTF-8">
+    <link href='/webjars/bootstrap/4.5.0/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header th:insert="common/header.html"></header>
+    <div class="container">
+        <div style="padding-bottom: 20px; padding-top: 10px;">
+            <h2>전화번호 등록</h2>
+        </div>
+        <form action="/add" method="post">
+            <div style="padding-bottom: 20px;">
+                <label for="phoneNumberName"><strong>이름</strong></label>
+                <input type="text" id="phoneNumberName" name="phoneNumberName" class="form-control" placeholder="이름을 입력하세요.">
+            </div>
+            <div style="padding-bottom: 20px;">
+                <label for="phoneNumber"><strong>전화번호</strong></label>
+                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="전화번호를 입력하세오.">
+            </div>
+            <div style="padding-bottom: 20px;">
+                <label for="phoneNumberContent"><strong>내용</strong></label>
+                <textarea id="phoneNumberContent" name="phoneNumberContent" class="form-control" placeholder="내용을 입력하세요."></textarea>
+            </div>
+            <div class="row">
+                <div class="col-auto mr-auto"></div>
+                <div class="col-auto">
+                    <input class="btn btn-primary" type="submit" role="button" value="등록">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
