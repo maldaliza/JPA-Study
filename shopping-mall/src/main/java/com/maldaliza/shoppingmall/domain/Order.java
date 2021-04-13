@@ -17,14 +17,15 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")      // FK 지정
     private Member member;
 
-    @OneToMany(mappedBy = "order")      // OrderItem 클래스(order_item 테이블)의 order 필드에 의해 맵핑.
+    @OneToMany(mappedBy = "order",       // OrderItem 클래스(order_item 테이블)의 order 필드에 의해 맵핑.
+               cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -32,4 +33,20 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;     // 주문상태 ENUM [ORDER, CANCEL]
+
+    //== 연관관계 메소드 ==//
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 }
