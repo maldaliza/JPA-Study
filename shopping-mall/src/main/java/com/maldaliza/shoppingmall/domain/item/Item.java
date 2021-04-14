@@ -1,6 +1,7 @@
 package com.maldaliza.shoppingmall.domain.item;
 
 import com.maldaliza.shoppingmall.domain.Category;
+import com.maldaliza.shoppingmall.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,25 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")       // Category 클래스의 items 필드에 의해 맵핑.
     private List<Category> categories = new ArrayList<>();
+
+    //== 비즈니스 로직 ==//
+    /**
+     * 재고 수량 증가
+     * @param quantity
+     */
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    /**
+     * 재고 수량 감소
+     * @param quantity
+     */
+    public void removeStock(int quantity) {
+        int restStock = this.stockQuantity - quantity;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
+    }
 }
