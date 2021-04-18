@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -39,7 +40,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String create(@ModelAttribute("memberForm") @Valid MemberForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "members/createMemberForm";
@@ -56,6 +57,11 @@ public class MemberController {
         return "redirect:/members";
     }
 
+    /**
+     * 회원 목록 조회
+     * @param model
+     * @return
+     */
     @GetMapping("/members")
     public String list(Model model) {
         List<Member> members = memberService.findMembers();
