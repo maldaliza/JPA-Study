@@ -89,6 +89,11 @@ public class ItemController {
         return "items/updateItemForm";
     }
 
+    /**
+     * 상품 수정 처리 (POST)
+     * @param form
+     * @return
+     */
     @PostMapping("/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
 
