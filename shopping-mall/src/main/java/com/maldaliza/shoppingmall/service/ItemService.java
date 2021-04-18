@@ -1,5 +1,6 @@
 package com.maldaliza.shoppingmall.service;
 
+import com.maldaliza.shoppingmall.domain.item.Book;
 import com.maldaliza.shoppingmall.domain.item.Item;
 import com.maldaliza.shoppingmall.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,24 @@ public class ItemService {
      */
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
+    }
+
+    /**
+     * 상품 수정 - 변경 감지 (Dirty Checking)
+     * @param itemId
+     * @param name
+     * @param price
+     * @param stockQuantity
+     */
+    @Transactional
+    public void updateItem(Long itemId, String name, int price, int stockQuantity) {
+
+        // 영속 상태의 상품을 찾아온다.
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuantity);
+
+        // 트랜잭션 커밋 시점에서 변경 감지(Dirty Checking)으로 DB에 UPDATE SQL 실행.
     }
 }
