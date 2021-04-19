@@ -29,4 +29,8 @@ public class ItemRepository {
         return entityManager.createQuery("select i from Item i", Item.class)
                 .getResultList();
     }
+
+    public void delete(Item item) {
+        entityManager.remove(item);
+    }
 }

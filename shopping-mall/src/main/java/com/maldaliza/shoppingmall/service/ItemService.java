@@ -60,4 +60,14 @@ public class ItemService {
 
         // 트랜잭션 커밋 시점에서 변경 감지(Dirty Checking)으로 DB에 UPDATE SQL 실행.
     }
+
+    /**
+     * 상품 삭제
+     * @param itemId
+     */
+    @Transactional
+    public void deleteItem(Long itemId) {
+        Item findItem = itemRepository.findOne(itemId);
+        itemRepository.delete(findItem);
+    }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+        <div th:object="${item}" style="padding-bottom: 10px;">
+            <div style="padding-bottom: 10px;">
+                <label th:for="id">ID</label>
+                <input type="number" th:field="*{id}" class="form-control" th:value="*{id}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="name">상품명</label>
+                <input type="text" th:field="*{name}" class="form-control" th:value="*{name}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="price">가격</label>
+                <input type="number" th:field="*{price}" class="form-control" th:value="*{price}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="stockQuantity">재고수량</label>
+                <input type="number" th:field="*{stockQuantity}" class="form-control" th:value="*{stockQuantity}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="author">저자</label>
+                <input type="text" th:field="*{author}" class="form-control" th:value="*{author}" readonly>
+            </div>
+            <div>
+                <label th:for="isbn">ISBN</label>
+                <input type="text" th:field="*{isbn}" class="form-control" th:value="*{isbn}" readonly>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col">
+                <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
+                   class="w-100 btn btn-primary" role="button">수정</a>
+            </div>
+            <div class="col">
+                <form th:action="@{/items/{id}/delete (id=${item.id})}" method="post">
+                    <button type="submit" class="w-100 btn btn-danger">삭제</button>
+                </form>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer" />
+    </div>
+</body>
+</html>
