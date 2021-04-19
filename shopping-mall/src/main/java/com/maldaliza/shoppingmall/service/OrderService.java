@@ -8,9 +8,12 @@ import com.maldaliza.shoppingmall.domain.item.Item;
 import com.maldaliza.shoppingmall.repository.ItemRepository;
 import com.maldaliza.shoppingmall.repository.MemberRepository;
 import com.maldaliza.shoppingmall.repository.OrderRepository;
+import com.maldaliza.shoppingmall.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -63,5 +66,14 @@ public class OrderService {
 
         // 주문 취소
         order.cancel();
+    }
+
+    /**
+     * 주문 검색
+     * @param orderSearch
+     * @return
+     */
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
     }
 }
