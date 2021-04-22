@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 - 상세보기</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <header th:insert="common/header.html"></header>
+    <div class="container">
+        <div th:object="${board}">
+            <div style="padding-bottom: 10px;">
+                <label th:for="id">ID</label>
+                <input type="number" th:field="*{id}" class="form-control" th:value="*{id}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="title">제목</label>
+                <input type="text" th:field="*{title}" class="form-control" th:value="*{title}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="author">작성자</label>
+                <input type="text" th:field="*{author}" class="form-control" th:value="*{author}" readonly>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <label th:for="content">내용</label>
+                <textarea th:field="*{content}" class="form-control" th:text="*{content}" readonly></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

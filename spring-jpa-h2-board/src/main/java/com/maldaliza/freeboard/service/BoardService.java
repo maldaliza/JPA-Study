@@ -25,6 +25,16 @@ public class BoardService {
     }
 
     /**
+     * 글 단건 조회
+     * @param id
+     * @return
+     */
+    public Board findOne(Long id) {
+        Board board = boardRepository.findOne(id);
+        return board;
+    }
+
+    /**
      * 글 다건 조회
      * @return
      */

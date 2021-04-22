@@ -7,8 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class BoardController {
 
     /**
      * 목록 보기
+     *
      * @param model
      * @return
      */
@@ -45,24 +47,27 @@ public class BoardController {
 
     /**
      * 글 쓰기 처리 (POST)
-     * @param title
-     * @param author
-     * @param content
+     *
+     * @param board
      * @return
      */
     @PostMapping("/post")
-    public String createPostProcess(@RequestParam("title") String title,
-                                    @RequestParam("author") String author,
-                                    @RequestParam("content") String content) {
-
+    public String createPostProcess(@ModelAttribute("board") Board board) {
         log.info("create post process");
-
-        Board board = new Board();
-        board.setTitle(title);
-        board.setAuthor(author);
-        board.setContent(content);
-
         boardService.savePost(board);
         return "redirect:/";
+    }
+
+    /**
+     * 글 상세 보기
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        Board board = boardService.findOne(id);
+        model.addAttribute("board", board);
+        return "board/detail";
     }
 }

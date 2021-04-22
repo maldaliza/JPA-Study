@@ -20,7 +20,11 @@
             <tbody>
             <tr th:each="post : ${postList}">
                 <td th:text="${post.id}">1</td>
-                <td th:text="${post.title}">안녕하세요.</td>
+                <td>
+                    <a th:href="@{'/detail/' + ${post.id}}">
+                        <span th:text="${post.title}">안녕하세요.</span>
+                    </a>
+                </td>
                 <td th:text="${post.author}">홍길동</td>
                 <td th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}">2021-04-21 03:20</td>
             </tr>
