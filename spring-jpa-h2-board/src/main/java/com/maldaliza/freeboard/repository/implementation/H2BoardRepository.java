@@ -22,6 +22,8 @@ public class H2BoardRepository implements BoardRepository {
     public void save(Board board) {
         if (board.getId() == null) {        // id가 미리 존재하지 않는 경우
             entityManager.persist(board);
+        } else {
+            entityManager.merge(board);
         }
     }
 

@@ -26,6 +26,12 @@
                 <textarea th:field="*{content}" class="form-control" th:text="*{content}" readonly></textarea>
             </div>
         </div>
+        <div class="row">
+            <div class="col-auto mr-auto"></div>
+            <div class="col-auto">
+                <a class="btn btn-primary" th:href="@{'/update/' + ${board.id}}" role="button">수정</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

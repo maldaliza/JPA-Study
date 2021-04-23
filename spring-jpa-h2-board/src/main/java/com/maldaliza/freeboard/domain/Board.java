@@ -32,4 +32,16 @@ public class Board {
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+
+    //== Board 수정 생성자 ==//
+    public Board(Long id, String title, String author, String content, LocalDateTime modifiedDate) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.content = content;
+        this.modifiedDate = modifiedDate;
+    }
+
+    public Board() {
+    }
 }

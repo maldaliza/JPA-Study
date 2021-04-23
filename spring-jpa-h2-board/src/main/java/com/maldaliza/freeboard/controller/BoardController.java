@@ -22,7 +22,6 @@ public class BoardController {
 
     /**
      * 목록 보기
-     *
      * @param model
      * @return
      */
@@ -36,7 +35,6 @@ public class BoardController {
 
     /**
      * 글 쓰기 폼 (GET)
-     *
      * @return
      */
     @GetMapping("/post")
@@ -47,7 +45,6 @@ public class BoardController {
 
     /**
      * 글 쓰기 처리 (POST)
-     *
      * @param board
      * @return
      */
@@ -55,7 +52,7 @@ public class BoardController {
     public String createPostProcess(@ModelAttribute("board") Board board) {
         log.info("create post process");
         boardService.savePost(board);
-        return "redirect:/";
+        return "redirect:/detail/" + board.getId();
     }
 
     /**
@@ -66,8 +63,43 @@ public class BoardController {
      */
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
+        log.info("detail");
         Board board = boardService.findOne(id);
         model.addAttribute("board", board);
         return "board/detail";
+    }
+
+    /**
+     * 글 수정 폼 (GET)
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/update/{id}")
+    public String updatePostForm(@PathVariable("id") Long id, Model model) {
+
+        log.info("update post form");
+
+        // 1. PathVariable에 해당하는 값을 찾는다.
+        Board findBoard = boardService.findOne(id);
+
+        // 2. 새로운 Board 객체 생성 및 값 세팅.
+        Board board = new Board(findBoard.getId(), findBoard.getTitle(), findBoard.getAuthor(),
+                                findBoard.getContent(), findBoard.getModifiedDate());
+
+        model.addAttribute("board", board);
+        return "board/updatePostForm";
+    }
+
+    /**
+     * 글 수정 처리 (POST)
+     * @param board
+     * @return
+     */
+    @PostMapping("/update/{id}")
+    public String updatePostProcess(@ModelAttribute("board") Board board) {
+        log.info("update post process");
+        boardService.savePost(board);
+        return "redirect:/detail/" + board.getId();
     }
 }
