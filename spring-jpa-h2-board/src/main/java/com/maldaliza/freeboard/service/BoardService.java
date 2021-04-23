@@ -42,4 +42,14 @@ public class BoardService {
         List<Board> boards = boardRepository.findAll();
         return boards;
     }
+
+    /**
+     * 글 삭제
+     * @param id
+     */
+    @Transactional
+    public void deleteBoard(Long id) {
+        Board findBoard = boardRepository.findOne(id);
+        boardRepository.delete(findBoard);
+    }
 }

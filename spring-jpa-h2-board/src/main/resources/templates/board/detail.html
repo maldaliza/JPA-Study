@@ -31,6 +31,12 @@
             <div class="col-auto">
                 <a class="btn btn-primary" th:href="@{'/update/' + ${board.id}}" role="button">수정</a>
             </div>
+            <div class="col-auto">
+                <form th:action="@{'/delete/' + ${board.id}}" method="post">
+<!--                    <input type="hidden" value="delete"/>-->
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
