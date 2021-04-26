@@ -43,15 +43,16 @@ public class BoardController {
 
     /**
      * 글 쓰기 처리 (POST)
-     * @param boardDto
+     * @param board
      * @return
      */
     @PostMapping("/post")
-    public String createPostProcess(@ModelAttribute BoardDto boardDto) {
+    public String createPostProcess(@ModelAttribute Board board) {
         log.info("create post process");
-        System.out.println(boardDto);
-        boardService.savePost(boardDto);
-        return "redirect:/";            // 이 부분 "상세보기"로 바꾸기!!!!
+        System.out.println(board.getId());      // 폼에서 id값을 입력 받지 않아서 null이 출력.
+        boardService.savePost(board);
+        System.out.println(board.getId());      // board값이 영속 상태가 되면서 id값이 생성되어 제대로된 값이 출력.
+        return "redirect:/detail/" + board.getId();
     }
 
     /**
@@ -91,14 +92,14 @@ public class BoardController {
 
     /**
      * 글 수정 처리 (POST)
-     * @param boardDto
+     * @param board
      * @return
      */
     @PostMapping("/update/{id}")
-    public String updatePostProcess(@ModelAttribute BoardDto boardDto) {
+    public String updatePostProcess(@ModelAttribute Board board) {
         log.info("update post process");
-        boardService.savePost(boardDto);
-        return "redirect:/detail/" + boardDto.getId();
+        boardService.savePost(board);
+        return "redirect:/detail/" + board.getId();
     }
 
     /**

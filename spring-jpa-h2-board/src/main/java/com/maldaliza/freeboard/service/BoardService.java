@@ -19,11 +19,11 @@ public class BoardService {
 
     /**
      * 글 저장
-     * @param boardDto
+     * @param board
      */
     @Transactional
-    public void savePost(BoardDto boardDto) {
-        boardRepository.save(boardDto.toEntity());
+    public void savePost(Board board) {
+        boardRepository.save(board);
     }
 
     /**
