@@ -1,6 +1,7 @@
 package com.maldaliza.freeboard.controller;
 
 import com.maldaliza.freeboard.domain.Board;
+import com.maldaliza.freeboard.dto.BoardDto;
 import com.maldaliza.freeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,21 +23,19 @@ public class BoardController {
 
     /**
      * 목록 보기
-     *
      * @param model
      * @return
      */
     @GetMapping("/")
     public String list(Model model) {
         log.info("home");
-        List<Board> boardList = boardService.findBoards();
-        model.addAttribute("postList", boardList);
+        List<BoardDto> boardDtoList = boardService.findBoards();
+        model.addAttribute("postList", boardDtoList);
         return "board/list";
     }
 
     /**
      * 글 쓰기 폼 (GET)
-     *
      * @return
      */
     @GetMapping("/post")
@@ -47,20 +46,18 @@ public class BoardController {
 
     /**
      * 글 쓰기 처리 (POST)
-     *
-     * @param board
+     * @param boardDto
      * @return
      */
     @PostMapping("/post")
-    public String createPostProcess(@ModelAttribute("board") Board board) {
+    public String createPostProcess(@ModelAttribute("boardDto") BoardDto boardDto) {
         log.info("create post process");
-        boardService.savePost(board);
-        return "redirect:/detail/" + board.getId();
+        boardService.savePost(boardDto);
+        return "redirect:/";
     }
 
     /**
      * 글 상세 보기
-     *
      * @param id
      * @param model
      * @return
@@ -75,7 +72,6 @@ public class BoardController {
 
     /**
      * 글 수정 폼 (GET)
-     *
      * @param id
      * @param model
      * @return
@@ -89,8 +85,7 @@ public class BoardController {
         Board findBoard = boardService.findOne(id);
 
         // 2. 새로운 Board 객체 생성 및 값 세팅.
-        Board board = new Board(findBoard.getId(), findBoard.getTitle(), findBoard.getAuthor(),
-                findBoard.getContent(), findBoard.getModifiedDate());
+        Board board = new Board(findBoard.getId(), findBoard.getTitle(), findBoard.getAuthor(), findBoard.getContent());
 
         model.addAttribute("board", board);
         return "board/updatePostForm";
@@ -98,15 +93,14 @@ public class BoardController {
 
     /**
      * 글 수정 처리 (POST)
-     *
-     * @param board
+     * @param boardDto
      * @return
      */
     @PostMapping("/update/{id}")
-    public String updatePostProcess(@ModelAttribute("board") Board board) {
+    public String updatePostProcess(@ModelAttribute("board") BoardDto boardDto) {
         log.info("update post process");
-        boardService.savePost(board);
-        return "redirect:/detail/" + board.getId();
+        boardService.savePost(boardDto);
+        return "redirect:/detail/" + boardDto.getId();
     }
 
     /**

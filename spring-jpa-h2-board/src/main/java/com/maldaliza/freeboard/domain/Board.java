@@ -1,5 +1,6 @@
 package com.maldaliza.freeboard.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,14 +35,14 @@ public class Board {
     private LocalDateTime modifiedDate;
 
     //== Board 수정 생성자 ==//
-    public Board(Long id, String title, String author, String content, LocalDateTime modifiedDate) {
+    @Builder
+    public Board(Long id, String title, String author, String content) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
-        this.modifiedDate = modifiedDate;
     }
 
-    public Board() {
+    protected Board() {
     }
 }

@@ -1,11 +1,13 @@
 package com.maldaliza.freeboard.service;
 
 import com.maldaliza.freeboard.domain.Board;
+import com.maldaliza.freeboard.dto.BoardDto;
 import com.maldaliza.freeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,11 +19,11 @@ public class BoardService {
 
     /**
      * 글 저장
-     * @param board
+     * @param boardDto
      */
     @Transactional
-    public void savePost(Board board) {
-        boardRepository.save(board);
+    public void savePost(BoardDto boardDto) {
+        boardRepository.save(boardDto.toEntity());
     }
 
     /**
@@ -38,9 +40,24 @@ public class BoardService {
      * 글 다건 조회
      * @return
      */
-    public List<Board> findBoards() {
-        List<Board> boards = boardRepository.findAll();
-        return boards;
+    public List<BoardDto> findBoards() {
+
+        List<Board> boardList = boardRepository.findAll();
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board board : boardList) {
+            BoardDto boardDto = BoardDto.builder()
+                    .id(board.getId())
+                    .title(board.getTitle())
+                    .author(board.getAuthor())
+                    .content(board.getContent())
+                    .createdDate(board.getCreatedDate())
+                    .build();
+
+            boardDtoList.add(boardDto);
+        }
+
+        return boardDtoList;
     }
 
     /**
