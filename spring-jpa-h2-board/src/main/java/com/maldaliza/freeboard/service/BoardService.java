@@ -31,9 +31,19 @@ public class BoardService {
      * @param id
      * @return
      */
-    public Board findOne(Long id) {
+    public BoardDto findOne(Long id) {
+
         Board board = boardRepository.findOne(id);
-        return board;
+
+        BoardDto boardDto = BoardDto.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .author(board.getAuthor())
+                .content(board.getContent())
+                .createdDate(board.getCreatedDate())
+                .build();
+
+        return boardDto;
     }
 
     /**

@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,10 +47,11 @@ public class BoardController {
      * @return
      */
     @PostMapping("/post")
-    public String createPostProcess(@ModelAttribute("boardDto") BoardDto boardDto) {
+    public String createPostProcess(@ModelAttribute BoardDto boardDto) {
         log.info("create post process");
+        System.out.println(boardDto);
         boardService.savePost(boardDto);
-        return "redirect:/";
+        return "redirect:/";            // 이 부분 "상세보기"로 바꾸기!!!!
     }
 
     /**
@@ -65,8 +63,8 @@ public class BoardController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         log.info("detail");
-        Board board = boardService.findOne(id);
-        model.addAttribute("board", board);
+        BoardDto boardDto = boardService.findOne(id);
+        model.addAttribute("board", boardDto);
         return "board/detail";
     }
 
@@ -82,10 +80,10 @@ public class BoardController {
         log.info("update post form");
 
         // 1. PathVariable에 해당하는 값을 찾는다.
-        Board findBoard = boardService.findOne(id);
+        BoardDto findBoardDto = boardService.findOne(id);
 
         // 2. 새로운 Board 객체 생성 및 값 세팅.
-        Board board = new Board(findBoard.getId(), findBoard.getTitle(), findBoard.getAuthor(), findBoard.getContent());
+        Board board = new Board(findBoardDto.getId(), findBoardDto.getTitle(), findBoardDto.getAuthor(), findBoardDto.getContent());
 
         model.addAttribute("board", board);
         return "board/updatePostForm";
@@ -97,7 +95,7 @@ public class BoardController {
      * @return
      */
     @PostMapping("/update/{id}")
-    public String updatePostProcess(@ModelAttribute("board") BoardDto boardDto) {
+    public String updatePostProcess(@ModelAttribute BoardDto boardDto) {
         log.info("update post process");
         boardService.savePost(boardDto);
         return "redirect:/detail/" + boardDto.getId();

@@ -1,8 +1,9 @@
 package com.maldaliza.freeboard.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,7 +12,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 외부에서 기본 생성자를 만들 수 없게 막음.
 @EntityListeners(AuditingEntityListener.class)      // JPA에게 해당 Entity는 Auditiong 기능을 사용함을 알립니다.
 public class Board {
 
@@ -41,8 +43,5 @@ public class Board {
         this.title = title;
         this.author = author;
         this.content = content;
-    }
-
-    protected Board() {
     }
 }
