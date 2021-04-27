@@ -17,13 +17,10 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    /**
-     * 글 저장
-     * @param board
-     */
     @Transactional
-    public void savePost(Board board) {
-        boardRepository.save(board);
+    public Long savePost(BoardDto boardDto) {
+        // boardDto.toEntity()를 통해 boardDto를 Board 타입의 엔티티로 만든다.
+        return boardRepository.save(boardDto.toEntity()).getId();
     }
 
     /**
@@ -33,7 +30,7 @@ public class BoardService {
      */
     public BoardDto findOne(Long id) {
 
-        Board board = boardRepository.findOne(id);
+        Board board = boardRepository.findById(id).get();
 
         BoardDto boardDto = BoardDto.builder()
                 .id(board.getId())
@@ -76,7 +73,6 @@ public class BoardService {
      */
     @Transactional
     public void deleteBoard(Long id) {
-        Board findBoard = boardRepository.findOne(id);
-        boardRepository.delete(findBoard);
+        boardRepository.deleteById(id);
     }
 }
