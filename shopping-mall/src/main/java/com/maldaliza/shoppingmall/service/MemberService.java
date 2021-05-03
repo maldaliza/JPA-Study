@@ -51,4 +51,19 @@ public class MemberService {
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
+
+    /**
+     * 회원 수정 - 변경 감지 (Dirty Checking)
+     * @param id
+     * @param name
+     */
+    @Transactional
+    public void update(Long id, String name) {
+
+        // 영속 상태의 회원을 찾아온다.
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+
+        // 트랜잭션 커밋 시점에서 변경 감지(Dirty Checking)으로 DB에 UPDATE SQL 실행.
+    }
 }
