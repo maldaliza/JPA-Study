@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,8 +78,9 @@ public class MemberApiController {
         List<Member> findMembers = memberService.findMembers();
 
         // 엔티티를 DTO로 변환
-        List<MemberDto> collect = findMembers.stream().map(m -> new MemberDto(m.getName()))
-                                                      .collect(Collectors.toList());
+        List<MemberDto> collect = findMembers.stream()    // 스트림 생성
+                .map(member -> new MemberDto(member.getName()))    // 중개 연산
+                .collect(Collectors.toList());    // 최종 연산
 
         return new Result(collect.size(), collect);
     }
