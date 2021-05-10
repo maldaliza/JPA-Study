@@ -1,5 +1,6 @@
 package com.maldaliza.shoppingmall.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Member {
     @Embedded
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")     // Order 클래스(orders 테이블)의 member 필드에 의해 맵핑.
     private List<Order> orders = new ArrayList<>();
 }
