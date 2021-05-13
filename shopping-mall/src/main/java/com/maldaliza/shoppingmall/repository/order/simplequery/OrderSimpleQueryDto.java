@@ -1,4 +1,4 @@
-package com.maldaliza.shoppingmall.repository;
+package com.maldaliza.shoppingmall.repository.order.simplequery;
 
 import com.maldaliza.shoppingmall.domain.Address;
 import com.maldaliza.shoppingmall.domain.OrderStatus;

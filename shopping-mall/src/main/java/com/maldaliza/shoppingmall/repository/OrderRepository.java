@@ -2,6 +2,7 @@ package com.maldaliza.shoppingmall.repository;
 
 import com.maldaliza.shoppingmall.domain.Member;
 import com.maldaliza.shoppingmall.domain.Order;
+import com.maldaliza.shoppingmall.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -106,17 +107,6 @@ public class OrderRepository {
         List<Order> result = entityManager.createQuery("select o from Order o" +
                 " join fetch o.member m" +
                 " join fetch o.delivery d", Order.class)
-                .getResultList();
-
-        return result;
-    }
-
-    public List<OrderSimpleQueryDto> findOrderDtos() {
-        List<OrderSimpleQueryDto> result = entityManager.createQuery(
-                "select new com.maldaliza.shoppingmall.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
-                " from Order o" +
-                " join o.member m" +
-                " join o.delivery d", OrderSimpleQueryDto.class)
                 .getResultList();
 
         return result;
