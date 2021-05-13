@@ -5,6 +5,7 @@ import com.maldaliza.shoppingmall.domain.Order;
 import com.maldaliza.shoppingmall.domain.OrderStatus;
 import com.maldaliza.shoppingmall.repository.OrderRepository;
 import com.maldaliza.shoppingmall.repository.OrderSearch;
+import com.maldaliza.shoppingmall.repository.OrderSimpleQueryDto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,11 +62,23 @@ public class OrderSimpleApiController {
     public List<SimpleOrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
         List<SimpleOrderDto> result = orders.stream()
-                .map(order -> new SimpleOrderDto(order))
+                .map(order -> new SimpleOrderDto(order))     // 엔티티를 DTO로 변환.
                 .collect(Collectors.toList());
         return result;
     }
 
+    /**
+     * JPA에서 DTO로 바로 조회
+     * @return
+     */
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> ordersV4() {
+        return orderRepository.findOrderDtos();
+    }
+
+    /**
+     * DTO
+     */
     @Data
     static class SimpleOrderDto {
         private Long orderId;
