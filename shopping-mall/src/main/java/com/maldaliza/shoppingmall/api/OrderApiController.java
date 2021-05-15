@@ -55,6 +55,21 @@ public class OrderApiController {
         return result;
     }
 
+    /**
+     * 엔티티를 조회해서 DTO로 변환 (Fetch Join 최적화)
+     * @return
+     */
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+
+        // orders -> orderDto
+        List<OrderDto> result = orders.stream()
+                .map(order -> new OrderDto(order))
+                .collect(Collectors.toList());
+        return result;
+    }
+
     @Getter
     static class OrderDto {
         private Long orderId;
