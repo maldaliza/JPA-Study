@@ -104,7 +104,8 @@ public class OrderRepository {
     }
 
     public List<Order> findAllWithMemberDelivery() {
-        List<Order> result = entityManager.createQuery("select o from Order o" +
+        List<Order> result = entityManager.createQuery(
+                "select o from Order o" +
                 " join fetch o.member m" +
                 " join fetch o.delivery d", Order.class)
                 .getResultList();
@@ -113,7 +114,8 @@ public class OrderRepository {
     }
 
     public List<Order> findAllWithItem() {
-        List<Order> result = entityManager.createQuery("select distinct o from Order o" +
+        List<Order> result = entityManager.createQuery(
+                "select distinct o from Order o" +
                 " join fetch o.member m" +
                 " join fetch o.delivery d" +
                 " join fetch o.orderItems oi" +

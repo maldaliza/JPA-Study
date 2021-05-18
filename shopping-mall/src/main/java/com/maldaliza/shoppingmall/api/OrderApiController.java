@@ -23,19 +23,21 @@ public class OrderApiController {
 
     /**
      * 엔티티를 직접 노출
-     *
      * @return
      */
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
         for (Order order : all) {
-            order.getMember().getName();
-            order.getDelivery().getAddress();
+            order.getMember().getName();        // LAZY 강제 초기화
+            order.getDelivery().getAddress();   // LAZY 강제 초기화
 
             // 주문과 관련된 orderItems를 다 가져와서 LAZY 강제 초기화.
             List<OrderItem> orderItems = order.getOrderItems();
-            orderItems.stream().forEach(orderItem -> orderItem.getItem().getName());
+            for (OrderItem orderItem : orderItems) {
+                orderItem.getItem().getName();
+            }
+//            orderItems.stream().forEach(orderItem -> orderItem.getItem().getName());
         }
         return all;
     }
@@ -70,6 +72,7 @@ public class OrderApiController {
         return result;
     }
 
+    //=== DTO ===//
     @Getter
     static class OrderDto {
         private Long orderId;
@@ -81,12 +84,12 @@ public class OrderApiController {
 
         public OrderDto(Order order) {
             orderId = order.getId();
-            name = order.getMember().getName();
+            name = order.getMember().getName();         // LAZY 강제 초기화
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
-            address = order.getDelivery().getAddress();
+            address = order.getDelivery().getAddress(); // LAZY 강제 초기화
 
-            // orderItems -> orderItemDto
+            // orderItems -> orderItemDto (엔티티에 대한 의존을 완전히 끊기 위해)
             orderItems = order.getOrderItems().stream()
                     .map(orderItem -> new OrderItemDto(orderItem))
                     .collect(Collectors.toList());
