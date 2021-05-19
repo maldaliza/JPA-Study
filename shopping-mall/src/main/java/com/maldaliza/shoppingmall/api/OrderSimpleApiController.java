@@ -35,6 +35,14 @@ public class OrderSimpleApiController {
      */
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
+
+        /*
+        <지연로딩 사용>
+        order 정보만 로딩하고, order에 맵핑된 member, orderItems, delivery 정보는 로딩하지 않는다. 대신 프록시 객체를 넣어둔다.
+        order.getMember()를 통해 반환되는 프록시 객체를 실제 사용될 때까지 데이터 로딩을 미룬다.
+        order.getMember().getName(), order.getMember().getAddress()의 구문을 통해 DB select 쿼리가 날아가 프록시 객체를 초기화한다.
+         */
+
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
         for (Order order : all) {
             order.getMember().getName();        // Lazy 강제 초기화
